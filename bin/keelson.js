@@ -8,12 +8,14 @@ const B = require('../lib/build');
 
 const HELP = `keelson ${VERSION}: a staff-level engineering agent for any AI coding tool
 
-Usage:
-  npx keelson init     [--tools a,b] [--profile name] [--dir path] [--yes] [--dry-run]
-  npx keelson update   [--dir path] [--dry-run]       Update kit files; never touches team memory
-  npx keelson doctor   [--dir path]                   Check the install
-  npx keelson chatgpt  [--out dir]                    Write the ChatGPT pack (instructions + knowledge files)
-  npx keelson profiles                                List stack profiles
+Run with:  npx github:abhishek305/keelson <command>   (always the latest version from GitHub)
+
+Commands:
+  init      [--tools a,b] [--profile name] [--dir path] [--yes] [--dry-run]   Set up Keelson in a repo
+  update    [--dir path] [--dry-run]       Update kit files; never touches team memory
+  doctor    [--dir path]                   Check the install
+  chatgpt   [--out dir]                    Write the ChatGPT pack (instructions + knowledge files)
+  profiles                                 List stack profiles
 
 Tools:    ${TOOLS.join(', ')}
 Profiles: ${B.profiles().join(', ')}

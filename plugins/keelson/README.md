@@ -6,6 +6,6 @@ Install (Claude Code 2.1.275 or later):
 
     /plugin install keelson --marketplace abhishek305/keelson
 
-This plugin bundles the `keelson` skill, eleven role sub-agents and the guard, context and resume hooks. For pinned team memory and the context status line, also run `npx keelson init` in your repo.
+This plugin bundles the `keelson` skill, eleven role sub-agents and the guard, context and resume hooks. For pinned team memory and the context status line, also run `npx github:abhishek305/keelson init` in your repo.
 
 Docs: https://github.com/abhishek305/keelson

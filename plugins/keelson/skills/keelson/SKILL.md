@@ -13,4 +13,4 @@ Path mapping for this skill install:
 - Stack profile: use `.keelson/profile.md` if the project has one; otherwise `references/profiles/generic.md` (auto-detect the stack from the repo).
 - Model roles: `.keelson/models.yaml` if present, else `references/models.yaml`.
 
-For the full install (hooks, pinned sub-agents, team memory), run `npx keelson init` in the repo.
+For the full install (hooks, pinned sub-agents, team memory), run `npx github:abhishek305/keelson init` in the repo.

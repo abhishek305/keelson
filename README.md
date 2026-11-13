@@ -7,7 +7,7 @@
 > A *keelson* is the beam bolted along a ship's keel to keep the hull straight under load. That's the job: keep AI-assisted delivery straight as the work gets bigger.
 
 ```bash
-npx keelson init
+npx github:abhishek305/keelson init
 ```
 
 ## Why
@@ -24,23 +24,36 @@ AI coding agents are fast but drift: they assume instead of asking, invent APIs,
 
 ## Quick start
 
+Everything installs straight from this GitHub repo. You need Node.js 18+ and git; no npm account or global install.
+
 ```bash
 cd your-repo
-npx keelson init                                   # pick tools and a stack profile
-npx keelson init --tools claude-code,codex --profile node-fullstack --yes
+npx github:abhishek305/keelson init          # asks which tools and which stack profile
 ```
 
-Then start your agent and say: *"Read AGENTS.md and confirm which Keelson files you loaded."*
+Or non-interactively:
 
-Other ways in:
+```bash
+npx github:abhishek305/keelson init --tools claude-code,codex,opencode,cursor --profile node-fullstack --yes
+```
+
+Then review the changes (`git diff`), commit them, start your agent and say: *"Read AGENTS.md and confirm which Keelson files you loaded."*
+
+### All the ways to use it
 
 | Want | Do |
 |---|---|
-| Claude Code plugin | `/plugin install keelson --marketplace abhishek305/keelson` |
+| Install or update in a repo | `npx github:abhishek305/keelson init` / `npx github:abhishek305/keelson update` (update never touches team memory) |
+| Pin a version | `npx github:abhishek305/keelson#<tag> init` (tags are listed under Releases) |
+| Check the install | `npx github:abhishek305/keelson doctor` |
+| Claude Code plugin | `/plugin marketplace add abhishek305/keelson`, then `/plugin install keelson@keelson` |
 | Just the skill, in any agent that supports Agent Skills | `npx skills add abhishek305/keelson` |
-| ChatGPT (Custom GPT or Project) | `npx keelson chatgpt`, paste `instructions.md`, upload the other files as knowledge |
-| Update later (never touches team memory) | `npx keelson@latest update` |
-| Check the install | `npx keelson doctor` |
+| ChatGPT (Custom GPT or Project) | `npx github:abhishek305/keelson chatgpt`, paste `instructions.md` into the instructions, upload the other three files as knowledge |
+| No npx at all | `git clone https://github.com/abhishek305/keelson.git` then `node keelson/bin/keelson.js init --dir your-repo` |
+
+**Tools:** `claude-code`, `codex`, `opencode`, `cursor`, `copilot`, `gemini`. **Profiles:** `generic` (learns your stack from the repo), `node-fullstack`, `python-backend`.
+
+**Tip:** to save typing, add `alias keelson="npx github:abhishek305/keelson"` to your shell profile, then run `keelson init`.
 
 ## How it works
 
@@ -90,8 +103,8 @@ Everything is plain Markdown, so every tool gets the persona, modes, gates and p
 
 ## Configure
 
-- **Models:** edit `.keelson/models.yaml`, then `npx keelson update`. Playbooks only ever say *planner*, *builder* and *reviewer*.
-- **Stack:** `npx keelson profiles` lists profiles (`generic`, `node-fullstack`, `python-backend`). `generic` learns the stack from your repo. New profiles are very welcome.
+- **Models:** edit `.keelson/models.yaml`, then `npx github:abhishek305/keelson update`. Playbooks only ever say *planner*, *builder* and *reviewer*.
+- **Stack:** `npx github:abhishek305/keelson profiles` lists profiles (`generic`, `node-fullstack`, `python-backend`). `generic` learns the stack from your repo. New profiles are very welcome.
 - **Team memory:** add 3–5 real facts to `.keelson/memory/team-rules.md` on day one (test command, data access pattern, error type). Corrections add more over time, through PRs.
 - **Personal rules:** copy `.keelson/memory/local/*.example.md` (gitignored).
 

@@ -4,7 +4,7 @@ labels: [bug]
 body:
   - type: input
     id: version
-    attributes: { label: Keelson version, placeholder: "npx keelson --version" }
+    attributes: { label: Keelson version, placeholder: "npx github:abhishek305/keelson --version" }
     validations: { required: true }
   - type: dropdown
     id: tool
@@ -14,5 +14,5 @@ body:
     validations: { required: true }
   - type: textarea
     id: what
-    attributes: { label: What happened, description: "Steps, expected vs actual, and `npx keelson doctor` output." }
+    attributes: { label: What happened, description: "Steps, expected vs actual, and `npx github:abhishek305/keelson doctor` output." }
     validations: { required: true }

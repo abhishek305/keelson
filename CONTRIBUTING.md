@@ -52,6 +52,6 @@ CI fails if generated files are stale, so run `npm run build` and commit the res
 New modes, changes to gates, the orchestration model or the installed layout need an RFC first: copy `docs/rfcs/0000-template.md`, open a PR, and discuss before implementing.
 
 ## Releases
-Maintainers tag `vX.Y.Z`; CI publishes to npm with provenance. Breaking layout changes are major versions and come with an `update` path.
+Maintainers tag `vX.Y.Z`; CI verifies and creates the GitHub release (and publishes to npm with provenance once npm publishing is turned on). Breaking layout changes are major versions and come with an `update` path.
 
 By contributing you agree your work is released under the MIT license and that you'll follow the [Code of Conduct](CODE_OF_CONDUCT.md).
