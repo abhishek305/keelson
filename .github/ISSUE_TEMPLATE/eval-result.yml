@@ -1,0 +1,14 @@
+name: Eval result
+description: Golden-task results from your tool
+labels: [eval]
+body:
+  - type: input
+    id: setup
+    attributes: { label: Keelson version, tool and model, placeholder: "0.1.0 · OpenCode · <model>" }
+    validations: { required: true }
+  - type: textarea
+    id: results
+    attributes:
+      label: Results
+      description: "Task # | pass/fail | note. Golden tasks: core/keelson/evals/golden-tasks.md"
+    validations: { required: true }

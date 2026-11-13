@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "docs/agent/ACTIVE.md",
+    ".keelson/profile.md",
+    ".keelson/memory/team-rules.md",
+    ".keelson/memory/project/context.md",
+    ".keelson/memory/project/tools.md",
+    ".keelson/memory/local/my-rules.md",
+    ".keelson/memory/local/learner.md"
+  ]
+}

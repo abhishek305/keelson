@@ -1,0 +1,28 @@
+# Publishes to npm when a vX.Y.Z tag is pushed, using npm trusted publishing (OIDC, no stored token).
+# One-time setup: npmjs.com → package "keelson" → Settings → Trusted publisher → GitHub Actions,
+# repo abhishek305/keelson, workflow release.yml.
+name: Release
+on:
+  push:
+    tags: ['v*.*.*']
+permissions:
+  contents: write
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - run: npm install -g npm@latest
+      - name: Tag matches package.json
+        run: test "v$(node -p "require('./package.json').version")" = "${GITHUB_REF_NAME}"
+      - run: npm run verify
+      - run: npm publish
+      - name: GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --generate-notes

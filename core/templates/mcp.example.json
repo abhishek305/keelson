@@ -1,0 +1,8 @@
+{
+  "_readme": "Copy to .mcp.json only for servers the team approved (see .staff-engineer/memory/project/tools.md). Verify each URL/package on the vendor's docs before use and pin versions.",
+  "mcpServers": {
+    "atlassian": { "type": "http", "url": "https://mcp.atlassian.com/v2/mcp" },
+    "google-docs": { "type": "http", "url": "https://docsmcp.googleapis.com/mcp/v1" },
+    "playwright": { "type": "stdio", "command": "npx", "args": ["@playwright/mcp@<pinned-version>"] }
+  }
+}

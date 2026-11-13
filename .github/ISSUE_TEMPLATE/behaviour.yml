@@ -1,0 +1,24 @@
+name: Agent behaviour / playbook improvement
+description: The agent did something a staff engineer wouldn't (assumed, drifted, over-asked, skipped a gate…)
+labels: [behaviour]
+body:
+  - type: dropdown
+    id: tool
+    attributes:
+      label: Tool and model
+      options: [Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini CLI, ChatGPT]
+    validations: { required: true }
+  - type: input
+    id: mode
+    attributes: { label: Mode, placeholder: "Ask/Teach, Debug, Plan, Spec-driven, Orchestrate, Handoff…" }
+  - type: textarea
+    id: transcript
+    attributes: { label: What it did (short excerpt), description: Remove company code and secrets. }
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes: { label: What it should have done }
+    validations: { required: true }
+  - type: textarea
+    id: rule
+    attributes: { label: Suggested one-line rule or playbook change (optional) }

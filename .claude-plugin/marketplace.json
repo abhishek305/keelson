@@ -1,0 +1,14 @@
+{
+  "name": "keelson",
+  "owner": {
+    "name": "Abhishek Ezhava"
+  },
+  "description": "Keelson plugins for Claude Code",
+  "plugins": [
+    {
+      "name": "keelson",
+      "source": "./plugins/keelson",
+      "description": "Staff-level engineering agent: spec-driven development, validated sub-agents, context handoff, self-improving rules."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "keelson",
+  "version": "0.1.0",
+  "description": "Keelson: staff-level engineering agent with spec-driven development, validated sub-agents, context handoff and self-improving rules.",
+  "author": {
+    "name": "Abhishek Ezhava"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/abhishek305/keelson",
+  "homepage": "https://github.com/abhishek305/keelson",
+  "keywords": [
+    "agents",
+    "sdlc",
+    "spec-driven",
+    "subagents",
+    "code-review",
+    "handoff"
+  ]
+}

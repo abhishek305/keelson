@@ -1,0 +1,12 @@
+name: New or better tool adapter
+description: Support another coding agent, or use more of a tool's features
+labels: [adapter]
+body:
+  - type: input
+    id: tool
+    attributes: { label: Tool }
+    validations: { required: true }
+  - type: textarea
+    id: features
+    attributes: { label: What the tool supports, description: "Instruction file, skills, sub-agents (format/location), hooks, model pinning. Link the official docs." }
+    validations: { required: true }

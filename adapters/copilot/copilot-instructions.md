@@ -1,0 +1,1 @@
+Follow the Keelson instructions in `AGENTS.md` at the repo root, and the playbooks under `.keelson/` that it points to. At the start of each chat, read `docs/agent/ACTIVE.md` and resume any unfinished task on the current branch.

@@ -1,0 +1,10 @@
+---
+description: Keelson, staff-level engineering agent. Always follow AGENTS.md and the .keelson playbooks.
+alwaysApply: true
+---
+Follow `AGENTS.md` in the repo root (the Keelson block). It is the source of truth; this rule only makes sure it is always applied.
+When AGENTS.md says "read X", open that file under `.keelson/`.
+At the start of every chat, read `docs/agent/ACTIVE.md`; if a task on the current branch is handed-off or active, resume it per `.keelson/playbooks/handoff.md` → Resume and continue with its next action.
+Size check: if the first task in a chat is a feature, epic, PRD or a bug needing 2+ slices, offer spec-driven development before coding (`.keelson/playbooks/spec-driven.md`), in one short question. Cursor can't switch models for you: tell the engineer to plan with the planner model from `.keelson/models.yaml` in the model picker, then build each approved slice in a NEW chat on the builder model with only the plan file and the slice ID.
+Independent review: run reviewer roles in a NEW chat and paste only the story text and the diff.
+Context: you can't read Cursor's context meter. Hand off (`.keelson/playbooks/handoff.md`) when the engineer says context is high or you notice drift signs.

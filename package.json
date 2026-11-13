@@ -1,0 +1,44 @@
+{
+  "name": "keelson",
+  "version": "0.1.0",
+  "description": "A staff-level engineering agent for any AI coding tool: spec-driven development, validated sub-agents, context handoff and self-improving rules. Works with Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini CLI and ChatGPT.",
+  "keywords": [
+    "ai-agents",
+    "agents-md",
+    "agent-skills",
+    "claude-code",
+    "codex",
+    "opencode",
+    "cursor",
+    "spec-driven-development",
+    "subagents",
+    "sdlc"
+  ],
+  "homepage": "https://github.com/abhishek305/keelson#readme",
+  "bugs": "https://github.com/abhishek305/keelson/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhishek305/keelson.git"
+  },
+  "license": "MIT",
+  "author": "Abhishek Ezhava",
+  "bin": {
+    "keelson": "bin/keelson.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "core/",
+    "adapters/",
+    "profiles/"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "check": "node scripts/check.js",
+    "test": "node --test test/*.test.js && bash test/hooks.test.sh",
+    "verify": "npm run build && npm run check && npm test"
+  }
+}

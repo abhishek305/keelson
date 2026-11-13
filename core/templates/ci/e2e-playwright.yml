@@ -1,0 +1,70 @@
+# Playwright E2E: shard, merge into one report, post summary to Slack and (optionally) email.
+# Needs: secrets.SLACK_WEBHOOK_URL; for email also secrets.SMTP_HOST/SMTP_USER/SMTP_PASS and vars.REPORT_EMAIL_TO.
+# playwright.config: reporter: process.env.CI ? [['blob'], ['list']] : [['html', { open: 'never' }]]
+name: E2E
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci && npx playwright install --with-deps
+      - run: npx playwright test --shard=${{ matrix.shard }}/4
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: blob-report-${{ matrix.shard }}
+          path: blob-report
+          retention-days: 7
+
+  report:
+    if: ${{ !cancelled() }}
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with: { path: all-blob-reports, pattern: blob-report-*, merge-multiple: true }
+      - run: npx playwright merge-reports --reporter html ./all-blob-reports
+      - run: PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright merge-reports --reporter json ./all-blob-reports
+      - id: s
+        run: |
+          echo "passed=$(jq '.stats.expected' results.json)" >> $GITHUB_OUTPUT
+          echo "failed=$(jq '.stats.unexpected' results.json)" >> $GITHUB_OUTPUT
+          echo "flaky=$(jq '.stats.flaky' results.json)" >> $GITHUB_OUTPUT
+          zip -qr playwright-report.zip playwright-report
+      - uses: actions/upload-artifact@v4
+        with: { name: playwright-report, path: playwright-report, retention-days: 14 }
+      - name: Slack summary
+        if: ${{ !env.ACT }}
+        uses: slackapi/slack-github-action@v2
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            text: "E2E ${{ github.repository }} (${{ github.head_ref || github.ref_name }}): ${{ steps.s.outputs.passed }} passed, ${{ steps.s.outputs.failed }} failed, ${{ steps.s.outputs.flaky }} flaky. Report: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      - name: Email summary
+        if: ${{ !env.ACT && vars.REPORT_EMAIL_TO != '' }}
+        uses: dawidd6/action-send-mail@v3 # pin to a commit SHA after checking the latest release
+        with:
+          server_address: ${{ secrets.SMTP_HOST }}
+          server_port: 465
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          subject: "E2E ${{ github.repository }}: ${{ steps.s.outputs.failed }} failed"
+          to: ${{ vars.REPORT_EMAIL_TO }}
+          from: CI <${{ secrets.SMTP_USER }}>
+          body: "Passed ${{ steps.s.outputs.passed }}, failed ${{ steps.s.outputs.failed }}, flaky ${{ steps.s.outputs.flaky }}. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          attachments: playwright-report.zip

@@ -1,0 +1,36 @@
+# Keelson model roles.
+# Playbooks only say "planner", "builder" and "reviewer". This file says which real model fills each role per tool.
+# The installer reads it to pin sub-agent models where a tool supports that. Edit it, then run `npx keelson update`.
+# "inherit" = use whatever model the session is running. Check your tool's docs for current model names.
+
+roles:
+  planner:      # strongest reasoning model: writes specs, orchestrates, validates
+    claude-code: opus
+    opencode: inherit
+    codex: inherit
+  planner_max:  # optional: the very strongest model, for the hardest epics only
+    claude-code: inherit
+    opencode: inherit
+    codex: inherit
+  builder:      # fast, cheaper model that follows a precise spec: implementer and routine roles
+    claude-code: sonnet
+    opencode: inherit
+    codex: inherit
+  reviewer:     # strong model in a fresh context: validator, security-reviewer
+    claude-code: opus
+    opencode: inherit
+    codex: inherit
+
+# Which role each sub-agent uses (and its reasoning effort, where the tool supports it).
+agents:
+  researcher:        { role: builder,  effort: medium }
+  context-builder:   { role: builder,  effort: medium }
+  idea-reviewer:     { role: planner,  effort: medium }
+  tool-scout:        { role: builder,  effort: medium }
+  story-writer:      { role: builder,  effort: medium }
+  implementer:       { role: builder,  effort: medium }
+  peer-reviewer:     { role: builder,  effort: high }
+  security-reviewer: { role: reviewer, effort: high }
+  qa-playwright:     { role: builder,  effort: medium }
+  docs-writer:       { role: builder,  effort: medium }
+  validator:         { role: reviewer, effort: high }
